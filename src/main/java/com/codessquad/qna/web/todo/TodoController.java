@@ -21,17 +21,27 @@ public class TodoController {
     }
 
     @PutMapping(value = "/{columnId}")
-    public ResponseEntity<TodoCard> updateCard(@PathVariable("columnId") int columnId, @RequestBody TodoCard todoCard) {
+    public ResponseEntity<Void> updateCard(@PathVariable("columnId") int columnId, @RequestBody TodoCard todoCard) {
         System.out.println(">>>>>>>>>>>>>" + todoCard);
         todoRepository.update(columnId, todoCard);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/{columnId}/{todoCardId}")
-    public ResponseEntity<TodoCard> deleteCard(@PathVariable("columnId") int columnId, @PathVariable("todoCardId") long todoCardId) {
+    public ResponseEntity<Void> deleteCard(@PathVariable("columnId") int columnId, @PathVariable("todoCardId") long todoCardId) {
         todoRepository.delete(columnId, todoCardId);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/move")
+    public ResponseEntity<Void> moveCard(@RequestBody MoveDto moveDto) {
+        todoRepository.move(moveDto.getBeforeColumnId(),
+                moveDto.getAfterColumnId(),
+                moveDto.getCardData(),
+                moveDto.getTargetCardId());
+        return ResponseEntity.ok().build();
+    }
+
 
     @GetMapping
     public ResponseEntity<Map<Integer, Column>> getTodos() {

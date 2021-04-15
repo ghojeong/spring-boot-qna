@@ -27,6 +27,12 @@ public class TodoRepository {
         column.deleteCard(todoCardId);
     }
 
+    public void move(int beforeColumnId, int afterColumnId, TodoCard todoCard, long targetCardId) {
+        delete(beforeColumnId, todoCard.getId());
+        todoCard.setId(targetCardId);
+        add(afterColumnId, todoCard);
+    }
+
     public Map<Integer, Column> get() {
         return columns;
     }
