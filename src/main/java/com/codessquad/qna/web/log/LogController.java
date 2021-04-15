@@ -15,18 +15,18 @@ public class LogController {
     public ResponseEntity<Log> addLog(@RequestBody Log log) {
         System.out.println(">>>>>>>>>>>>>" + log);
         Log newLog = logRepository.add(log);
-        return  ResponseEntity.created(
+        return ResponseEntity.created(
                 URI.create("/logs" + newLog.getId())
         ).body(newLog);
     }
 
     @GetMapping
-    public ResponseEntity<List<Log>> addLogs() {
-        return  ResponseEntity.ok().body(logRepository.getLogs());
+    public ResponseEntity<List<Log>> getLogs() {
+        return ResponseEntity.ok().body(logRepository.getLogs());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Log> addLog(@PathVariable("id") int id) {
+    public ResponseEntity<Log> getLog(@PathVariable("id") long id) {
         return ResponseEntity.ok().body(logRepository.getLog(id));
     }
 }

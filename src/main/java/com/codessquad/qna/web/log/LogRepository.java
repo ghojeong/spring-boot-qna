@@ -6,12 +6,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class LogRepository {
-    private Map<Integer, Log> logs = new ConcurrentHashMap<>();
+    private Map<Long, Log> logs = new ConcurrentHashMap<>();
 
     public Log add(Log log) {
-        int questionId = logs.size();
-        log.setId(questionId);
-        logs.put(questionId, log);
+        long id = logs.size();
+        log.setId(id);
+        logs.put(id, log);
         return log;
     }
 
@@ -22,7 +22,7 @@ public class LogRepository {
                 .collect(Collectors.toList());
     }
 
-    public Log getLog(int id) {
+    public Log getLog(long id) {
         return logs.getOrDefault(id, new Log());
     }
 }
