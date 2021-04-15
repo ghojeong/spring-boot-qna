@@ -1,40 +1,22 @@
 package com.codessquad.qna.web.question;
 
 public class Question {
-    long questionId;
-    String writer;
-    String title;
-    String contents;
+    long id;
+    String content;
 
-    public long getQuestionId() {
-        return questionId;
+    public long getId() {
+        return id;
     }
 
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getWriter() {
-        return writer;
+    public String getContent() {
+        return content;
     }
 
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
+    public void setContent(String content) {
+        this.content = content;
     }
 }

@@ -8,10 +8,11 @@ import java.util.stream.Collectors;
 public class QuestionRepository {
     private Map<Integer, Question> questions = new ConcurrentHashMap<>();
 
-    public void add(Question question) {
+    public Question add(Question question) {
         int questionId = questions.size() + 1;
-        question.setQuestionId(questionId);
+        question.setId(questionId);
         questions.put(questionId, question);
+        return question;
     }
 
     public List<Question> getQuestions() {

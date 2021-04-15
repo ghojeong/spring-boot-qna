@@ -1,31 +1,32 @@
 package com.codessquad.qna.web.question;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.net.URI;
+import java.util.List;
+
+@RestController
 @RequestMapping("/questions")
 public class QuestionController {
     QuestionRepository questionRepository = new QuestionRepository();
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String question_create(Question question) {
-        questionRepository.add(question);
-        return "redirect:/questions";
+    @PostMapping
+    public ResponseEntity<Question>  addQuestion(@RequestBody Question question) {
+        System.out.println(">>>>>>>>>>>>>" + question.getContent());
+        Question addedQuestion = questionRepository.add(question);
+        return  ResponseEntity.created(
+                URI.create("/questions" + addedQuestion.getId())
+        ).body(addedQuestion);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String question_list(Model model) {
-        model.addAttribute("questions", questionRepository.getQuestions());
-        return "question/list";
+    @GetMapping
+    public ResponseEntity<List<Question>>  getQuestions() {
+        return  ResponseEntity.ok().body(questionRepository.getQuestions());
     }
 
-    @RequestMapping(value = "/{questionId}", method = RequestMethod.GET)
-    public String question_profile(@PathVariable("questionId") int questionId, Model model) {
-        model.addAttribute("question", questionRepository.getQuestion(questionId));
-        return "question/show";
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Question> getQuestion(@PathVariable("id") int id) {
+        return ResponseEntity.ok().body(questionRepository.getQuestion(id));
     }
 }

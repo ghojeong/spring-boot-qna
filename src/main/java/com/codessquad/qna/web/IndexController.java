@@ -1,13 +1,18 @@
 package com.codessquad.qna.web;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-// FIXME: MvcConfig 에서 index 의 리다이렉션을 유도할 수는 없을까?
-@Controller
+@RestController
 public class IndexController {
-    @GetMapping("/")
-    public String index_redirect() {
-        return "redirect:/questions/list";
+    @GetMapping
+    public ResponseEntity<String> getRoot() {
+        return  ResponseEntity.ok().body("pong");
+    }
+
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return  ResponseEntity.ok().body("pong");
     }
 }
