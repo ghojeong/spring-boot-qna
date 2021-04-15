@@ -27,7 +27,7 @@ public class TodoController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(value = "/{columnId}/{todoCardId}")
+    @DeleteMapping(value = "/{columnId}/{todoCardId}")
     public ResponseEntity<Void> deleteCard(@PathVariable("columnId") int columnId, @PathVariable("todoCardId") long todoCardId) {
         todoRepository.delete(columnId, todoCardId);
         return ResponseEntity.ok().build();
